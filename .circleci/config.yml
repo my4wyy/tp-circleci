@@ -1,0 +1,65 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/node:18.17
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run build
+
+  unit-tests:
+    docker:
+      - image: cimg/node:18.17
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run test:unit
+
+  integration-tests:
+    docker:
+      - image: cimg/node:18.17
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run test:integration
+
+  acceptance-tests:
+    docker:
+      - image: cimg/node:18.17
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run test:acceptance
+
+  deploy:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: docker build -t meuuser/meuapp:$CIRCLE_SHA1 .
+      - run:
+          name: Docker Login
+          command: |
+            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+      - run: docker push meuuser/meuapp:$CIRCLE_SHA1
+
+workflows:
+  version: 2
+  pipeline:
+    jobs:
+      - build
+      - unit-tests:
+          requires:
+            - build
+      - integration-tests:
+          requires:
+            - unit-tests
+      - acceptance-tests:
+          requires:
+            - integration-tests
+      - deploy:
+          requires:
+            - acceptance-tests

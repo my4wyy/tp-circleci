@@ -1,0 +1,28 @@
+{
+  "name": "tp-circleci",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'Build OK'",
+    "test:unit": "echo 'Unit test OK'",
+    "test:integration": "echo 'Integration test OK'",
+    "test:acceptance": "echo 'Acceptance OK'",
+    "test": "npm run test:unit && npm run test:integration && npm run test:acceptance"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/my4wyy/tp-circleci.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/my4wyy/tp-circleci/issues"
+  },
+  "homepage": "https://github.com/my4wyy/tp-circleci#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+  
+}
