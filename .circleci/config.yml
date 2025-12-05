@@ -39,12 +39,12 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run: docker build -t meuuser/meuapp:$CIRCLE_SHA1 .
+      - run: docker build -t my4wyy/meuapp:$CIRCLE_SHA1 .
       - run:
           name: Docker Login
           command: |
             echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-      - run: docker push meuuser/meuapp:$CIRCLE_SHA1
+      - run: docker push my4wyy/meuapp:$CIRCLE_SHA1
 
 workflows:
   version: 2
